@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func Test (t *testing.T) {
+func TestURLValidate (t *testing.T) {
 	var tests = []struct {
 		url string
 		valid bool

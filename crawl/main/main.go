@@ -21,6 +21,7 @@ func findIP(url string) {
 		fmt.Println(ip)
 	case ip := <- ipChannel:
 		fmt.Println(ip)
+		cache[url] = ip
 	}
 }
 
@@ -39,6 +40,8 @@ func main() {
 	var url string
 	cache = make(map[string][]net.IP)
 	Load(&cache)
+	defer Save(cache)
+	fmt.Println(cache)
 	for {
 		_, _ = fmt.Scan(&url)
 		if urlValidator.Validate(url) {
@@ -46,7 +49,6 @@ func main() {
 		} else if url != "exit" {
 			fmt.Println("Invalid Url")
 		} else {
-			Save(cache)
 			break
 		}
 	}
